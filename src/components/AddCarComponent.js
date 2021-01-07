@@ -23,24 +23,49 @@ class AddCarComponent extends Component {
         this.onSubmit  =this.onSubmit.bind(this);
     }
 
-    onSubmit(values) {
-        let car = {
-            brand: values.brand,
-        model: values.model,
-        productionYear: values.productionYear,
-        plate: values.plate,
-        fuelType: values.fuelType
+
+    componentDidMount() {
+        if(this.state.id !== 'new') {
+            CarsDataService.getCar(this.state.id)
+                .then(response => {
+                    this.setState({item: response.data})
+                })
         }
+    }
+
+    onSubmit(values) {
 
         if(this.state.id === 'new') {
+            let car = {
+                brand: values.brand,
+                model: values.model,
+                productionYear: values.productionYear,
+                plate: values.plate,
+                fuelType: values.fuelType
+                }
+        
             CarsDataService.addCar(car)
                 .then(()=> this.props.history.push('/cars'))
-        } 
+        } else {
+            let car = {
+                id: this.state.id,
+                brand: values.brand,
+                model: values.model,
+                productionYear: values.productionYear,
+                plate: values.plate,
+                fuelType: values.fuelType
+                }
+        
+            CarsDataService.updateCar(car)
+                .then(()=>this.props.history.push('/cars'))
+        }
     }
 
    validate(values) {
        let errors ={};
-       if(values.productionYear<1900 || values.productionYear>2021) {
+       if(!Number(values.productionYear)) {
+        errors.productionYear = "Enter correct production year";
+       } else if( values.productionYear<1900 || values.productionYear>2021) {
            errors.productionYear = "Enter correct production year";
        }
        if(values.brand === '') {
@@ -55,7 +80,11 @@ class AddCarComponent extends Component {
     render() {
         let brand = this.state.item.brand;
         let model = this.state.item.model;
-        let fuelType = this.state.item.fuelType;
+        let fuelType;
+        if(this.state.item.fuelType)
+             fuelType = this.state.item.fuelType;
+        else
+            fuelType = "DIESEL";
         let productionYear = this.state.item.productionYear;
         let plate = this.state.item.plate;
 

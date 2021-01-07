@@ -10,6 +10,9 @@ class CarListComponent extends Component {
         }
 
         this.refreshCars = this.refreshCars.bind(this);
+        this.updateCar = this.updateCar.bind(this);
+        this.deleteCar = this.deleteCar.bind(this);
+
     }
 
     componentDidMount() {
@@ -32,11 +35,29 @@ class CarListComponent extends Component {
     addCar() {
         this.props.history.push("/cars/new")
     }
+
+    updateCar(id) {
+        this.props.history.push(`/cars/${id}`)
+    }
+
+    deleteCar(id) {
+        CarsDataService.deleteCar(id)
+            .then(
+                ()=> {
+                    this.setState({
+                        message: `Delete of car ${id} succesful`
+                    })
+                    this.refreshCars();
+                }
+            )
+        
+    }
     
     render() {
         return (
             <div className="container">
                 <h3>All cars</h3>
+                {this.state.message && <div className="alert alert-success">{this.state.message}</div>}
                 <table className="table">
                     <thead>
                         <tr>
@@ -59,8 +80,8 @@ class CarListComponent extends Component {
                                 <td>{car.fuelType}</td>
                                 <td>{car.productionYear}</td>
                                 <td>{car.plate}</td>
-                                {/* <td><button className="btn btn-success" onClick={() => this.updateCourse(course.id)}>Update</button></td>
-                                <td><button className="btn btn-warning" onClick={() => this.deleteCourse(course.id)}>Delete</button></td> */}
+                                <td><button className="btn btn-success" onClick={() => this.updateCar(car.id)}>Update</button></td>
+                                <td><button className="btn btn-warning" onClick={() => this.deleteCar(car.id)}>Delete</button></td>
                             </tr>
                         )
                     }
