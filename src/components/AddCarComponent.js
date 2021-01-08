@@ -43,7 +43,6 @@ class AddCarComponent extends Component {
                 plate: values.plate,
                 fuelType: values.fuelType
                 }
-        
             CarsDataService.addCar(car)
                 .then(()=> this.props.history.push('/cars'))
         } else {

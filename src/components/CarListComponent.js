@@ -1,4 +1,5 @@
 import { Component } from "react";
+import AuthenticationService from "./AuthenticationService";
 import CarsDataService from "./CarsDataService";
 class CarListComponent extends Component {
     
@@ -54,6 +55,13 @@ class CarListComponent extends Component {
     }
     
     render() {
+        const isLoggedIn = AuthenticationService.isUserLoggedIn();
+        let message = "";
+        if(!isLoggedIn) {
+            message = <div className="alert alert-warning">Please login to see list of your cars</div>
+        } else if(isLoggedIn && this.state.cars.length===0) {
+            message = <div className="alert alert-warning">Please add first car</div>
+        }
         return (
             <div className="container">
                 <h3>All cars</h3>
@@ -87,6 +95,7 @@ class CarListComponent extends Component {
                     }
                     </tbody>
                 </table>
+                {message}
                 <button className="btn btn-success" onClick={() => this.addCar()}>Add new car</button>
             </div>
         )
