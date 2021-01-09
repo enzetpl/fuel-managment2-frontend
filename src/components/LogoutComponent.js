@@ -1,11 +1,15 @@
 import { Component } from "react";
+import AppNavbar from "./AppNavbar";
+import AuthenticationService from "./AuthenticationService";
 
 class LogoutComponent extends Component {
     render() {
-        localStorage.removeItem("user");
+        AuthenticationService.logoutUser();
+
         return (
             <div>
-                Loggout successful
+                <AppNavbar/>
+                <div className="alert alert-warning">Loggout successful</div>
             </div>
         )
     }

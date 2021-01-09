@@ -5,15 +5,16 @@ import AuthenticatedRoute from "./AuthenticatedRoute";
 import CarListComponent from "./CarListComponent";
 import LoginComponent from './LoginComponent'
 import LogoutComponent from "./LogoutComponent";
+import RegisterComponent from "./RegisterComponent";
 
 class FuelManagmentApp extends Component {
     render() {
         return (
             <BrowserRouter>
-                <h2>Fuel managment app</h2>
                 <Switch>
                 <AuthenticatedRoute exact path="/cars/:id" component={AddCarComponent}/>
                 <Route path="/cars" component={CarListComponent}/>
+                <Route path="/register" component={RegisterComponent}/>
                 <Route path="/login" component={LoginComponent}/>
                 <Route path="/logout" component={LogoutComponent}/>
                 </Switch>

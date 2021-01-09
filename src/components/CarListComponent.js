@@ -1,4 +1,5 @@
 import { Component } from "react";
+import AppNavbar from "./AppNavbar";
 import AuthenticationService from "./AuthenticationService";
 import CarsDataService from "./CarsDataService";
 class CarListComponent extends Component {
@@ -64,6 +65,7 @@ class CarListComponent extends Component {
         }
         return (
             <div className="container">
+                 <AppNavbar/>
                 <h3>All cars</h3>
                 {this.state.message && <div className="alert alert-success">{this.state.message}</div>}
                 <table className="table">

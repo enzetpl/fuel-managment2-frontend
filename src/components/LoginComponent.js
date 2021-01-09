@@ -1,6 +1,7 @@
 import { Component } from "react";
 import AuthenticationService from './AuthenticationService'
 import {Formik, Form, ErrorMessage, Field} from 'formik'
+import AppNavbar from "./AppNavbar";
 class LoginComponent extends Component {
     constructor(props) {
         super(props);
@@ -16,6 +17,7 @@ class LoginComponent extends Component {
         AuthenticationService.executeBasicAuth(values.username, values.password)
             .then(() => {
                 this.props.history.push('/cars');
+
             })
     }
     render() {
@@ -23,6 +25,7 @@ class LoginComponent extends Component {
         let password = this.state.password;
         return (
             <div className="container">
+                <AppNavbar/>
                 <Formik
                 initialValues={{ username, password}}
                         onSubmit={this.onSubmit}
@@ -42,9 +45,9 @@ class LoginComponent extends Component {
                                     <fieldset className="form-group">
                                         <label>password</label>
                                         <ErrorMessage name="password" component="div" className="alert alert-warning"/>
-                                        <Field className="form-control" type="text" name="password" />
+                                        <Field className="form-control" type="password" name="password" />
                                     </fieldset>
-                                    <button className="btn btn-success" type="submit">Save</button>
+                                    <button className="btn btn-success" type="submit">login</button>
 
                                 </Form>
                             )

@@ -8,6 +8,10 @@ class AuthenticationService {
         return user!=null
     }
 
+     async register(user) {
+        return axios.post(`${API_URL}/api/users/register`, user);
+    }
+
     executeBasicAuth(username, password) {
         localStorage.setItem("user",  this.createBasicAuthToken(username, password));
         return axios.get(`${API_URL}/api/auth`,
@@ -16,6 +20,9 @@ class AuthenticationService {
 
     createBasicAuthToken(username, password) {
         return 'Basic ' + window.btoa(username + ":" + password)
+    }
+    logoutUser() {
+        localStorage.removeItem("user");
     }
  
 }
