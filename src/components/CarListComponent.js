@@ -54,6 +54,10 @@ class CarListComponent extends Component {
             )
         
     }
+
+    showRefuels(id) {
+        this.props.history.push(`/cars/${id}/refuels`)
+    }
     
     render() {
         const isLoggedIn = AuthenticationService.isUserLoggedIn();
@@ -90,8 +94,10 @@ class CarListComponent extends Component {
                                 <td>{car.fuelType}</td>
                                 <td>{car.productionYear}</td>
                                 <td>{car.plate}</td>
-                                <td><button className="btn btn-success" onClick={() => this.updateCar(car.id)}>Update</button></td>
-                                <td><button className="btn btn-warning" onClick={() => this.deleteCar(car.id)}>Delete</button></td>
+                                <td><button className="btn btn-success btn-lg" onClick={() => this.showRefuels(car.id)}>show refuels</button></td>
+
+                                <td><button className="btn btn-info" onClick={() => this.updateCar(car.id)}>Update</button>
+                                <button className="btn btn-warning" onClick={() => this.deleteCar(car.id)}>Delete</button></td>
                             </tr>
                         )
                     }

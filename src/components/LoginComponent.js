@@ -8,7 +8,8 @@ class LoginComponent extends Component {
 
         this.state = {
             username: '',
-            password: ''
+            password: '',
+            badLogin: false
         }
         this.onSubmit = this.onSubmit.bind(this);
     }
@@ -17,7 +18,11 @@ class LoginComponent extends Component {
         AuthenticationService.executeBasicAuth(values.username, values.password)
             .then(() => {
                 this.props.history.push('/cars');
-
+            })
+            .catch((err)=> {
+                this.setState({
+                    badLoginMessage: true
+                })
             })
     }
     render() {
@@ -26,6 +31,8 @@ class LoginComponent extends Component {
         return (
             <div className="container">
                 <AppNavbar/>
+                <br/>
+                {this.state.badLoginMessage && <div className="alert alert-danger">Bad credentials</div>}
                 <Formik
                 initialValues={{ username, password}}
                         onSubmit={this.onSubmit}

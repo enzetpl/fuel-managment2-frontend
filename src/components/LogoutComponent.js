@@ -9,6 +9,7 @@ class LogoutComponent extends Component {
         return (
             <div>
                 <AppNavbar/>
+                <br/>
                 <div className="alert alert-warning">Loggout successful</div>
             </div>
         )

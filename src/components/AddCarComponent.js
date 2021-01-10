@@ -9,7 +9,7 @@ class AddCarComponent extends Component {
         brand: '',
         model: '',
         productionYear: null,
-        plate: '',
+        plate: null,
         fuelType: ''
     }
 
@@ -20,7 +20,7 @@ class AddCarComponent extends Component {
 
         this.state = {
             item: this.emptyItem,
-            id: this.props.match.params.id
+            id: this.props.match.params.carId
         }
         this.onSubmit = this.onSubmit.bind(this);
     }
@@ -54,8 +54,10 @@ class AddCarComponent extends Component {
                             setFieldError('brand', error.message)
                         if (error.fieldName === 'model')
                             setFieldError('model', error.message)
-                        if (error.fieldName === 'fuelType')
-                            setFieldError('fuelType', error.message)
+                        if (error.fieldName === 'productionYear')
+                            setFieldError('productionYear', error.message)
+                        if (error.fieldName === 'plate')
+                            setFieldError('plate', error.message)
                     }
                 })
         } else {
@@ -78,17 +80,17 @@ class AddCarComponent extends Component {
                             setFieldError('brand', error.message)
                         if (error.fieldName === 'model')
                             setFieldError('model', error.message)
-                        if (error.fieldName === 'fuelType')
-                            setFieldError('fuelType', error.message)
+                        if (error.fieldName === 'plate')
+                            setFieldError('plate', error.message)
                     }
+                
                 })
         }
     }
 
-       validate(values, {setFieldError }) {
+       validate(values) {
            let errors ={};
            if(!Number(values.productionYear)) {
-            setFieldError('fuelType', "Enter correct production year")
             errors.productionYear = "Enter correct production year";
        }
     }
@@ -139,10 +141,11 @@ class AddCarComponent extends Component {
                                 <fieldset className="form-group">
                                     <label>production year</label>
                                     <ErrorMessage name="productionYear" component="div" className="alert alert-warning" />
-                                    <Field className="form-control" type="text" name="productionYear" />
+                                    <Field className="form-control" type="number" name="productionYear" />
                                 </fieldset>
                                 <fieldset className="form-group">
                                     <label>plate(optional)</label>
+                                    <ErrorMessage name="plate" component="div" className="alert alert-warning" />
                                     <Field className="form-control" type="text" name="plate" />
                                 </fieldset>
                                 <button className="btn btn-success" type="submit">Save</button>

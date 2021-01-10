@@ -8,6 +8,7 @@ class RegisterComponent extends Component {
         super(props);
         this.state = {
             role: 'USER',
+            successMessage: null
         }
         this.onSubmit = this.onSubmit.bind(this);
 
@@ -16,8 +17,10 @@ class RegisterComponent extends Component {
 
     async onSubmit(values, {setErrors, resetForm, setFieldError}) {
         await AuthenticationService.register(values)
-            .then(() => {
-                this.props.history.push('/login');
+            .then((response) => {
+                this.setState({
+                    successMessage: response.data.message
+                })
             }).catch(err => {
                 const errArr = err.response.data.errors
                  for (let error of errArr) {
@@ -43,6 +46,7 @@ class RegisterComponent extends Component {
         return (
             <div className="container">
                 <AppNavbar />
+                {this.state.successMessage && <div className="alert alert-success">Registration successful! Now you can <a href="/login">login</a></div>}
                 <Formik
                     initialValues={{ username, email, password, role }}
                     onSubmit={this.onSubmit}
