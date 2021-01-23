@@ -1,6 +1,6 @@
 import { Component } from "react";
 import RefuelsDataService from "./RefuelsDataService";
-import { Formik, Form, Field, ErrorMessage, setFieldError } from 'formik';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
 import AppNavbar from "./AppNavbar";
 
 
@@ -12,7 +12,6 @@ class AddRefuelComponent extends Component {
         refuelDate: new Date()
     }
 
-    
     constructor(props) {
         super(props)
 
@@ -28,40 +27,35 @@ class AddRefuelComponent extends Component {
         if (this.state.id !== 'new') {
             RefuelsDataService.getRefuel(this.props.match.params.carId, this.state.id)
                 .then(response => {
+                    response.data.refuelDate = new Date(response.data.refuelDate)
                     this.setState({ item: response.data })
                 })
         }
     }
 
-    onSubmit(values, { setErrors, resetForm, setFieldError }) {
+    onSubmit(values, { setErrors }) {
+
+        let refuel = {
+            volume: values.volume,
+            priceForLiter: values.priceForLiter,
+            refuelDate: new Date(values.refuelDate + " " + values.refuelTime)
+        }
         if (this.state.id === 'new') {
-            let refuel = {
-                volume: values.volume,
-                priceForLiter: values.priceForLiter,
-                refuelDate: values.refuelDate
-            }
-            RefuelsDataService.addCar(this.props.match.params.carId, refuel)
+            RefuelsDataService.addRefuel(this.props.match.params.carId, refuel)
                 .then(() => this.props.history.push(`/cars/${this.props.match.params.carId}/refuels`))
                 .catch(err => {
-                    const errArr = err.response.data.errors
-                    for (let error of errArr) {
-                        if (error.fieldName === 'volume')
-                            setFieldError('volume', error.message)
-                        if (error.fieldName === 'priceForLiter')
-                            setFieldError('priceForLiter', error.message)
-                            if (error.fieldName === 'refuelDate')
-                            setFieldError('refuelDate', error.message)
-                    }
+                    let errors = err.response.data.errors
+                    let reducedErrors = errors.reduce((acc, cur)=>({...acc, [cur.fieldName]: cur.message}),{})
+                    setErrors(reducedErrors);
                 })
         } else {
-            let car = {
-                id: this.state.id,
-                brand: values.brand,
-                model: values.model,
-                productionYear: values.productionYear,
-                plate: values.plate,
-                fuelType: values.fuelType
-            }
+            RefuelsDataService.updateRefuel(this.props.match.params.carId, this.state.id, refuel)
+                .then(() => this.props.history.push(`/cars/${this.props.match.params.carId}/refuels`))
+                .catch(err => {
+                    let errors = err.response.data.errors
+                    let reducedErrors = errors.reduce((acc, cur)=>({...acc, [cur.fieldName]: cur.message}),{})
+                    setErrors(reducedErrors);
+                })
         }
     }
 
@@ -70,14 +64,13 @@ class AddRefuelComponent extends Component {
 
         let volume = this.state.item.volume;
         let priceForLiter = this.state.item.priceForLiter;
-        let refuelDate = this.state.item.refuelDate;
-
-
+        let refuelDate = this.state.item.refuelDate.toLocaleDateString('en-CA');
+        let refuelTime = this.state.item.refuelDate.toLocaleTimeString();
         return (
             <div className="container">
                 <AppNavbar />
                 <Formik
-                    initialValues={{ volume, priceForLiter, refuelDate }}
+                    initialValues={{ volume, priceForLiter, refuelDate, refuelTime }}
                     onSubmit={this.onSubmit}
                     validateOnChange={false}
                     validateOnBlur={false}
@@ -100,10 +93,14 @@ class AddRefuelComponent extends Component {
                                 <fieldset className="form-group">
                                     <label>refuel date</label>
                                     <ErrorMessage name="refuelDate" component="div" className="alert alert-warning" />
-                                    <Field className="form-control" type="datetime-local" name="refuelDate" />
+                                    <Field className="form-control" type="date" name="refuelDate" />
+                                </fieldset>
+                                <fieldset className="form-group">
+                                    <label>refuel time</label>
+                                    <ErrorMessage name="refuelTime" component="div" className="alert alert-warning" />
+                                    <Field className="form-control" type="time" name="refuelTime" />
                                 </fieldset>
                                 <button className="btn btn-success" type="submit">Save</button>
-
                             </Form>
                         )
                     }

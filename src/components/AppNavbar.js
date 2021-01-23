@@ -4,7 +4,7 @@ import AuthenticationService from "./AuthenticationService";
 class AppNavbar extends Component {
     render() {
         let isUserLoggedIn = AuthenticationService.isUserLoggedIn();
-        let loginOrLogoutButton = "";
+        let loginOrLogoutButton;
         let registerButton = "";
         if (isUserLoggedIn) {
             loginOrLogoutButton = <a className="nav-item nav-link" href="/logout">logout</a>

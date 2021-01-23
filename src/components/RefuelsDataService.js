@@ -17,6 +17,12 @@ class RefuelsDataService {
         return axios.delete(`${API_URL}/cars/${carId}/refuels/${id}`, {headers: { Authorization: localStorage.getItem("user")}});
 
     }
+    addRefuel(carId, refuel) {
+        return axios.post(`${API_URL}/cars/${carId}/refuels`, refuel, {headers: { Authorization: localStorage.getItem("user")}});
+    }
+    updateRefuel(carId, refuelId, refuel) {
+        return axios.patch(`${API_URL}/cars/${carId}/refuels/${refuelId}`, refuel, {headers: { Authorization: localStorage.getItem("user")}});
+    }
 
 }
 

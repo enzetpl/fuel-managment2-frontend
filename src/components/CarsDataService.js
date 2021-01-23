@@ -13,8 +13,8 @@ class CarsDataService {
     addCar(car) {
         return axios.post(`${API_URL}/cars`, car, {headers: { Authorization: localStorage.getItem("user")}});
     }
-    updateCar(car) {
-        return axios.patch(`${API_URL}/cars/${car.id}`, car, {headers: { Authorization: localStorage.getItem("user")}});
+    updateCar(carId, car) {
+        return axios.patch(`${API_URL}/cars/${carId}`, car, {headers: { Authorization: localStorage.getItem("user")}});
     }
     getCar(id) {
         return axios.get(`${API_URL}/cars/${id}`,{headers: { Authorization: localStorage.getItem("user")}});

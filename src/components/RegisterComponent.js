@@ -1,6 +1,6 @@
 import { Component } from "react";
 import AppNavbar from "./AppNavbar";
-import { Formik, Form, ErrorMessage, Field, resetForm, setFieldError } from 'formik'
+import { Formik, Form, ErrorMessage, Field} from 'formik'
 import AuthenticationService from "./AuthenticationService";
 class RegisterComponent extends Component {
 
@@ -15,23 +15,16 @@ class RegisterComponent extends Component {
 
     }
 
-    async onSubmit(values, {setErrors, resetForm, setFieldError}) {
+    async onSubmit(values, {setErrors}) {
         await AuthenticationService.register(values)
             .then((response) => {
                 this.setState({
                     successMessage: response.data.message
                 })
             }).catch(err => {
-                const errArr = err.response.data.errors
-                 for (let error of errArr) {
-                     if (error.fieldName === 'username')
-                        setFieldError('username', error.message)
-                     if (error.fieldName === 'email')
-                     setFieldError('email', error.message)
-                     if (error.fieldName === 'password')
-                        setFieldError('password', error.message)
-                 }
-
+                let errors = err.response.data.errors
+                let reducedErrors = errors.reduce((acc, cur)=>({...acc, [cur.fieldName]: cur.message}),{})
+                setErrors(reducedErrors);
             })
     }
 

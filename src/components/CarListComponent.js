@@ -47,18 +47,23 @@ class CarListComponent extends Component {
             .then(
                 ()=> {
                     this.setState({
-                        message: `Delete of car ${id} succesful`
+                        message: `Delete of car ${id} succesfull`
                     })
                     this.refreshCars();
                 }
             )
         
     }
+    addRefuel(id) {
+        this.props.history.push(`/cars/${id}/refuels/new`)
+    }
 
     showRefuels(id) {
         this.props.history.push(`/cars/${id}/refuels`)
     }
-    
+    showStats(id) {
+        this.props.history.push(`/cars/${id}/stats`)
+    }
     render() {
         const isLoggedIn = AuthenticationService.isUserLoggedIn();
         let message = "";
@@ -76,7 +81,7 @@ class CarListComponent extends Component {
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>mark</th>
+                            <th>brand</th>
                             <th>model</th>
                             <th>Fuel type</th>
                             <th>production year</th>
@@ -94,10 +99,12 @@ class CarListComponent extends Component {
                                 <td>{car.fuelType}</td>
                                 <td>{car.productionYear}</td>
                                 <td>{car.plate}</td>
-                                <td><button className="btn btn-success btn-lg" onClick={() => this.showRefuels(car.id)}>show refuels</button></td>
-
-                                <td><button className="btn btn-info" onClick={() => this.updateCar(car.id)}>Update</button>
-                                <button className="btn btn-warning" onClick={() => this.deleteCar(car.id)}>Delete</button></td>
+                                <td><button className="btn btn-success btn-lg" onClick={() => this.addRefuel(car.id)}>Add refuel</button></td>
+                                <td><button className="btn btn-success btn-lg" onClick={() => this.showStats(car.id)}>show stats</button></td>
+                                <td className="btn-group-vertical">
+                                <button className="btn btn-success btn-sm" onClick={() => this.showRefuels(car.id)}>show refuels</button>
+                                <button className="btn btn-info btn-sm" onClick={() => this.updateCar(car.id)}>Update car</button>
+                                <button className="btn btn-warning btn-sm" onClick={() => this.deleteCar(car.id)}>Delete car</button></td>
                             </tr>
                         )
                     }

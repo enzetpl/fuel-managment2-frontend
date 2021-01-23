@@ -9,7 +9,7 @@ class LoginComponent extends Component {
         this.state = {
             username: '',
             password: '',
-            badLogin: false
+            badLoginMessage: false
         }
         this.onSubmit = this.onSubmit.bind(this);
     }
@@ -19,7 +19,7 @@ class LoginComponent extends Component {
             .then(() => {
                 this.props.history.push('/cars');
             })
-            .catch((err)=> {
+            .catch(()=> {
                 this.setState({
                     badLoginMessage: true
                 })

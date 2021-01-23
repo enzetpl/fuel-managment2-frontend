@@ -65,7 +65,7 @@ class RefuelsListComponent extends Component {
         if(!isLoggedIn) {
             message = <div className="alert alert-warning">Please login to see list of your cars</div>
         } else if(isLoggedIn && this.state.refuels.length===0) {
-            message = <div className="alert alert-warning">Please add first car</div>
+            message = <div className="alert alert-warning">Please add first refuel</div>
         }
         return (
             <div className="container">

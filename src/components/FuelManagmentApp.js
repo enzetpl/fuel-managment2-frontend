@@ -9,6 +9,7 @@ import LoginComponent from './LoginComponent'
 import LogoutComponent from "./LogoutComponent";
 import RefuelsListComponent from "./RefuelsListComponent";
 import RegisterComponent from "./RegisterComponent";
+import StatsSummaryComponent from "./StatsSummaryComponent";
 
 class FuelManagmentApp extends Component {
     render() {
@@ -18,6 +19,7 @@ class FuelManagmentApp extends Component {
                 <Route exact path="/" component={HomeComponent}/>
                 <AuthenticatedRoute path="/cars/:carId/refuels/:refuelId" component={AddRefuelComponent}/>
                 <AuthenticatedRoute path="/cars/:carId/refuels/" component={RefuelsListComponent}/>
+                <AuthenticatedRoute path="/cars/:carId/stats" component={StatsSummaryComponent}/>
                 <AuthenticatedRoute path="/cars/:carId" component={AddCarComponent}/>
                 <AuthenticatedRoute path="/cars" component={CarListComponent}/>
                 <Route path="/register" component={RegisterComponent}/>

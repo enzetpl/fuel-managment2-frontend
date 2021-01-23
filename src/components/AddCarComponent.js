@@ -1,30 +1,24 @@
 import { Component } from "react";
 import CarsDataService from "./CarsDataService";
-import { Formik, Form, Field, ErrorMessage, setFieldError } from 'formik';
-import App from "../App";
+import { Formik, Form, Field, ErrorMessage } from 'formik';
 import AppNavbar from "./AppNavbar";
 class AddCarComponent extends Component {
 
-    emptyItem = {
+    defaultItem = {
         brand: '',
         model: '',
-        productionYear: null,
-        plate: null,
-        fuelType: ''
+        productionYear: undefined,
+        plate: undefined,
+        fuelType: "DIESEL"
     }
-
-
     constructor(props) {
         super(props);
-
-
         this.state = {
-            item: this.emptyItem,
-            id: this.props.match.params.carId
+            item: this.defaultItem,
+            id: this.props.match.params.carId,
         }
         this.onSubmit = this.onSubmit.bind(this);
     }
-
 
     componentDidMount() {
         if (this.state.id !== 'new') {
@@ -35,76 +29,32 @@ class AddCarComponent extends Component {
         }
     }
 
-    onSubmit(values, { setErrors, resetForm, setFieldError }) {
-
+    onSubmit(values, { setErrors }) {
+        let car = values;
         if (this.state.id === 'new') {
-            let car = {
-                brand: values.brand,
-                model: values.model,
-                productionYear: values.productionYear,
-                plate: values.plate,
-                fuelType: values.fuelType
-            }
             CarsDataService.addCar(car)
                 .then(() => this.props.history.push('/cars'))
                 .catch(err => {
-                    const errArr = err.response.data.errors
-                    for (let error of errArr) {
-                        if (error.fieldName === 'brand')
-                            setFieldError('brand', error.message)
-                        if (error.fieldName === 'model')
-                            setFieldError('model', error.message)
-                        if (error.fieldName === 'productionYear')
-                            setFieldError('productionYear', error.message)
-                        if (error.fieldName === 'plate')
-                            setFieldError('plate', error.message)
-                    }
+                    let errors = err.response.data.errors
+                    let reducedErrors = errors.reduce((acc, cur)=>({...acc, [cur.fieldName]: cur.message}),{})
+                    setErrors(reducedErrors);
                 })
         } else {
-            let car = {
-                id: this.state.id,
-                brand: values.brand,
-                model: values.model,
-                productionYear: values.productionYear,
-                plate: values.plate,
-                fuelType: values.fuelType
-            }
-
-            CarsDataService.updateCar(car)
+            CarsDataService.updateCar(this.state.id, car)
                 .then(() => this.props.history.push('/cars'))
-                .catch((err) => {
-                    const errArr = err.response.data.errors
-                    if(errArr!==null)
-                    for (let error of errArr) {
-                        if (error.fieldName === 'brand')
-                            setFieldError('brand', error.message)
-                        if (error.fieldName === 'model')
-                            setFieldError('model', error.message)
-                        if (error.fieldName === 'plate')
-                            setFieldError('plate', error.message)
-                    }
-                
+                .catch(err => {
+                    let errors = err.response.data.errors
+                    let reducedErrors = errors.reduce((acc, cur)=>({...acc, [cur.fieldName]: cur.message}),{})
+                    setErrors(reducedErrors);
                 })
         }
-    }
-
-       validate(values) {
-           let errors ={};
-           if(!Number(values.productionYear)) {
-            errors.productionYear = "Enter correct production year";
-       }
     }
     render() {
         let brand = this.state.item.brand;
         let model = this.state.item.model;
-        let fuelType;
-        if (this.state.item.fuelType)
-            fuelType = this.state.item.fuelType;
-        else
-            fuelType = "DIESEL";
+        let fuelType = this.state.item.fuelType;
         let productionYear = this.state.item.productionYear;
         let plate = this.state.item.plate
-        let status;
 
         return (
             <div className="container">
@@ -114,7 +64,6 @@ class AddCarComponent extends Component {
                     onSubmit={this.onSubmit}
                     validateOnChange={false}
                     validateOnBlur={false}
-                    validate={this.validate}
                     enableReinitialize={true}
                 >
                     {
@@ -127,12 +76,12 @@ class AddCarComponent extends Component {
                                 </fieldset>
                                 <fieldset className="form-group">
                                     <label>model</label>
-                                    <ErrorMessage name="brand" component="div" className="alert alert-warning" />
+                                    <ErrorMessage name="model" component="div" className="alert alert-warning" />
                                     <Field className="form-control" type="text" name="model" />
                                 </fieldset>
                                 <fieldset className="form-group">
                                     <label>fuel type</label>
-                                    <Field className="form-control" as="select" name="fuelType" >
+                                    <Field component="select" className="form-control" as="select" name="fuelType" variant="outlined" >
                                         <option value="DIESEL">diesel</option>
                                         <option value="PETROL">petrol</option>
                                         <option value="GAS">gas</option>
@@ -149,7 +98,6 @@ class AddCarComponent extends Component {
                                     <Field className="form-control" type="text" name="plate" />
                                 </fieldset>
                                 <button className="btn btn-success" type="submit">Save</button>
-
                             </Form>
                         )
                     }
