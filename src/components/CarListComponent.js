@@ -2,6 +2,7 @@ import { Component } from "react";
 import AppNavbar from "./AppNavbar";
 import AuthenticationService from "./AuthenticationService";
 import CarsDataService from "./CarsDataService";
+import refuelIcon from "../img/blood-drop.png";
 class CarListComponent extends Component {
     
     constructor(props) {
@@ -99,8 +100,8 @@ class CarListComponent extends Component {
                                 <td>{car.fuelType}</td>
                                 <td>{car.productionYear}</td>
                                 <td>{car.plate}</td>
-                                <td><button className="btn btn-success btn-lg" onClick={() => this.addRefuel(car.id)}>Add refuel</button></td>
-                                <td><button className="btn btn-success btn-lg" onClick={() => this.showStats(car.id)}>show stats</button></td>
+                                <td><button className="btn btn-success btn-lg" onClick={() => this.addRefuel(car.id)}><img src={refuelIcon} height="40rem"/>Add refuel</button>
+                                    <button className="btn btn-success btn-lg" onClick={() => this.showStats(car.id)}>show summary</button></td>
                                 <td className="btn-group-vertical">
                                 <button className="btn btn-success btn-sm" onClick={() => this.showRefuels(car.id)}>show refuels</button>
                                 <button className="btn btn-info btn-sm" onClick={() => this.updateCar(car.id)}>Update car</button>
