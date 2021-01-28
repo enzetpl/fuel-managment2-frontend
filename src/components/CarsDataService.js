@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const API_URL = 'http://fuelmng-env.eba-taegx2jp.eu-central-1.elasticbeanstalk.com/api'
+const API_URL = 'https://fuelmng-env.eba-taegx2jp.eu-central-1.elasticbeanstalk.com/api'
 
 
 class CarsDataService {
