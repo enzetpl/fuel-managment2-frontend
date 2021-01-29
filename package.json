@@ -21,6 +21,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
+  "proxy": "https://fuelmng-env.eba-taegx2jp.eu-central-1.elasticbeanstalk.com",
   "eslintConfig": {
     "extends": [
       "react-app",
