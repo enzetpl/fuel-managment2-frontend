@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const API_URL = 'http://fuelmng-env.eba-taegx2jp.eu-central-1.elasticbeanstalk.com'
+const API_URL = 'https://cors-everywhere-me.herokuapp.com/http://fuelmng-env.eba-taegx2jp.eu-central-1.elasticbeanstalk.com'
 
 class AuthenticationService {
     isUserLoggedIn() {
