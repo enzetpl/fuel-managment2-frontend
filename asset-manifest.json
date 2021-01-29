@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/fuel-managment2-frontend/static/css/main.256dc990.chunk.css",
-    "main.js": "/fuel-managment2-frontend/static/js/main.370609f9.chunk.js",
-    "main.js.map": "/fuel-managment2-frontend/static/js/main.370609f9.chunk.js.map",
+    "main.js": "/fuel-managment2-frontend/static/js/main.2c8a1cea.chunk.js",
+    "main.js.map": "/fuel-managment2-frontend/static/js/main.2c8a1cea.chunk.js.map",
     "runtime-main.js": "/fuel-managment2-frontend/static/js/runtime-main.13e9c941.js",
     "runtime-main.js.map": "/fuel-managment2-frontend/static/js/runtime-main.13e9c941.js.map",
     "static/js/2.79607a02.chunk.js": "/fuel-managment2-frontend/static/js/2.79607a02.chunk.js",
@@ -18,6 +18,6 @@
     "static/js/runtime-main.13e9c941.js",
     "static/js/2.79607a02.chunk.js",
     "static/css/main.256dc990.chunk.css",
-    "static/js/main.370609f9.chunk.js"
+    "static/js/main.2c8a1cea.chunk.js"
   ]
 }
