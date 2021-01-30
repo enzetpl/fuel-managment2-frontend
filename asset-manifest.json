@@ -1,23 +1,23 @@
 {
   "files": {
-    "main.css": "/fuel-managment2-frontend/static/css/main.256dc990.chunk.css",
-    "main.js": "/fuel-managment2-frontend/static/js/main.adb36778.chunk.js",
-    "main.js.map": "/fuel-managment2-frontend/static/js/main.adb36778.chunk.js.map",
-    "runtime-main.js": "/fuel-managment2-frontend/static/js/runtime-main.13e9c941.js",
-    "runtime-main.js.map": "/fuel-managment2-frontend/static/js/runtime-main.13e9c941.js.map",
-    "static/js/2.41456466.chunk.js": "/fuel-managment2-frontend/static/js/2.41456466.chunk.js",
-    "static/js/2.41456466.chunk.js.map": "/fuel-managment2-frontend/static/js/2.41456466.chunk.js.map",
-    "static/js/3.b1c79362.chunk.js": "/fuel-managment2-frontend/static/js/3.b1c79362.chunk.js",
-    "static/js/3.b1c79362.chunk.js.map": "/fuel-managment2-frontend/static/js/3.b1c79362.chunk.js.map",
-    "index.html": "/fuel-managment2-frontend/index.html",
-    "static/css/main.256dc990.chunk.css.map": "/fuel-managment2-frontend/static/css/main.256dc990.chunk.css.map",
-    "static/js/2.41456466.chunk.js.LICENSE.txt": "/fuel-managment2-frontend/static/js/2.41456466.chunk.js.LICENSE.txt",
-    "static/media/blood-drop.aca97268.png": "/fuel-managment2-frontend/static/media/blood-drop.aca97268.png"
+    "main.css": "/static/css/main.256dc990.chunk.css",
+    "main.js": "/static/js/main.00750ec7.chunk.js",
+    "main.js.map": "/static/js/main.00750ec7.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.036381c7.js",
+    "runtime-main.js.map": "/static/js/runtime-main.036381c7.js.map",
+    "static/js/2.1c5449fb.chunk.js": "/static/js/2.1c5449fb.chunk.js",
+    "static/js/2.1c5449fb.chunk.js.map": "/static/js/2.1c5449fb.chunk.js.map",
+    "static/js/3.b1c79362.chunk.js": "/static/js/3.b1c79362.chunk.js",
+    "static/js/3.b1c79362.chunk.js.map": "/static/js/3.b1c79362.chunk.js.map",
+    "index.html": "/index.html",
+    "static/css/main.256dc990.chunk.css.map": "/static/css/main.256dc990.chunk.css.map",
+    "static/js/2.1c5449fb.chunk.js.LICENSE.txt": "/static/js/2.1c5449fb.chunk.js.LICENSE.txt",
+    "static/media/blood-drop.aca97268.png": "/static/media/blood-drop.aca97268.png"
   },
   "entrypoints": [
-    "static/js/runtime-main.13e9c941.js",
-    "static/js/2.41456466.chunk.js",
+    "static/js/runtime-main.036381c7.js",
+    "static/js/2.1c5449fb.chunk.js",
     "static/css/main.256dc990.chunk.css",
-    "static/js/main.adb36778.chunk.js"
+    "static/js/main.00750ec7.chunk.js"
   ]
 }
