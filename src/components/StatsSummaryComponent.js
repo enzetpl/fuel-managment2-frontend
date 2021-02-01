@@ -2,6 +2,7 @@ import { Component } from "react";
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import AppNavbar from "./AppNavbar";
 import StatsSummaryDataService from "./StatsSummaryDataService";
+import AuthenticationService from "./AuthenticationService";
 
 class StatsSummaryComponent extends Component {
 
@@ -13,19 +14,33 @@ class StatsSummaryComponent extends Component {
             carId: this.props.match.params.carId,
             startDate: new Date(2020,1,1).toISOString().substr(0, 10),
             endDate: new Date().toISOString().substr(0, 10),
-            item: null
+            item: null,
+            error: null
         }
         this.onSubmit = this.onSubmit.bind(this);
 
     }
 
     onSubmit(values) {
+        this.setState({error: null});
+        if(this.state.carId !== undefined) {
         StatsSummaryDataService.retreiveAllRefuelsForCar(this.state.carId, values.startDate, values.endDate)
         .then(response => {
-            
             this.setState({ item: response.data })
-            console.log(this.state.item)
-        })    
+        })
+            .catch((err)=>{
+                this.setState({error:  err.response.data.errors[0].message})
+            })
+        } else {
+            StatsSummaryDataService.retreiveAllRefuelsForUser(values.startDate, values.endDate)
+                .then(response => {
+                    this.setState({ item: response.data })
+                })
+                .catch((err)=>{
+                    this.setState({error: err.response.data.errors[0].message})
+                })
+        }
+
     }
 
     render() {
@@ -34,6 +49,10 @@ class StatsSummaryComponent extends Component {
         let endDate = this.state.endDate;
         let summaryTable;
         let item = this.state.item;
+        let error = "";
+        if(this.state.error != null) {
+            error = this.state.error
+        }
         if(this.state.item != null) {
             if(this.state.item.totalRefuels === 0) {
                 summaryTable = <div><div className="alert alert-warning">No refuels in selected time</div></div>
@@ -86,7 +105,9 @@ class StatsSummaryComponent extends Component {
                     )
                 }
             </Formik>
-            {summaryTable}
+                {this.state.error && <div className="alert alert-warning">{this.state.error}</div>}
+                {!this.state.error && <div>{summaryTable}</div>}
+
         </div>
         )
     }

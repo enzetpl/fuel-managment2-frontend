@@ -22,6 +22,7 @@ class FuelManagmentApp extends Component {
                 <AuthenticatedRoute path="/cars/:carId/stats" component={StatsSummaryComponent}/>
                 <AuthenticatedRoute path="/cars/:carId" component={AddCarComponent}/>
                 <AuthenticatedRoute path="/cars" component={CarListComponent}/>
+                <AuthenticatedRoute path="/stats" component={StatsSummaryComponent}/>
                 <Route path="/register" component={RegisterComponent}/>
                 <Route path="/login" component={LoginComponent}/>
                 <AuthenticatedRoute path="/logout" component={LogoutComponent}/>

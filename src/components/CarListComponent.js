@@ -113,6 +113,7 @@ class CarListComponent extends Component {
                 </table>
                 {message}
                 <button className="btn btn-success" onClick={() => this.addCar()}>Add new car</button>
+                <a className="btn btn-outline-success m-1" href="/stats">your statistics</a>
             </div>
         )
     }
